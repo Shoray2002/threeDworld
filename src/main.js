@@ -323,7 +323,7 @@ function controls(deltaTime) {
   }
 }
 
-const loader = new GLTFLoader().setPath("./");
+const loader = new GLTFLoader().setPath("../assets/");
 
 loader.load("collision-world.glb", (gltf) => {
   scene.add(gltf.scene);

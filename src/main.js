@@ -35,7 +35,10 @@ directionalLight.shadow.mapSize.width = 1024;
 directionalLight.shadow.mapSize.height = 1024;
 directionalLight.shadow.radius = 4;
 directionalLight.shadow.bias = -0.00006;
-scene.add(directionalLight);
+// scene.add(directionalLight);
+
+const flashlight = new THREE.PointLight(0xffffff, 0.5, 10);
+scene.add(flashlight);
 
 const container = document.getElementById("container");
 
@@ -119,6 +122,15 @@ document.body.addEventListener("mousemove", (event) => {
   }
 });
 
+document.addEventListener("keydown", (event) => {
+  if (event.key === "f") {
+    if (flashlight.intensity > 0) {
+      flashlight.intensity = 0;
+    } else {
+      flashlight.intensity = 1;
+    }
+  }
+});
 window.addEventListener("resize", onWindowResize);
 
 function onWindowResize() {
@@ -362,7 +374,8 @@ function animate() {
   const deltaTime = Math.min(0.05, clock.getDelta()) / STEPS_PER_FRAME;
   for (let i = 0; i < STEPS_PER_FRAME; i++) {
     controls(deltaTime);
-
+    // move flashlight
+    flashlight.position.copy(camera.position);
     updatePlayer(deltaTime);
 
     updateSpheres(deltaTime);

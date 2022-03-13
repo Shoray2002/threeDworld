@@ -35,7 +35,7 @@ directionalLight.shadow.mapSize.width = 1024;
 directionalLight.shadow.mapSize.height = 1024;
 directionalLight.shadow.radius = 4;
 directionalLight.shadow.bias = -0.00006;
-// scene.add(directionalLight);
+scene.add(directionalLight);
 
 const flashlight = new THREE.PointLight(0xffffff, 0.5, 10);
 scene.add(flashlight);
@@ -128,6 +128,16 @@ document.addEventListener("keydown", (event) => {
       flashlight.intensity = 0;
     } else {
       flashlight.intensity = 1;
+    }
+  } else if (event.key === "t") {
+    if (directionalLight.intensity > 0) {
+      directionalLight.intensity = 0;
+      fillLight1.intensity = 0;
+      scene.background = new THREE.Color(0x000000);
+    } else {
+      directionalLight.intensity = 1;
+      fillLight1.intensity = 0.5;
+      scene.background = new THREE.Color(0x88ccee);
     }
   }
 });

@@ -37,7 +37,9 @@ directionalLight.shadow.radius = 4;
 directionalLight.shadow.bias = -0.00006;
 scene.add(directionalLight);
 
-const flashlight = new THREE.PointLight(0xffffff, 0.5, 10);
+const flashlight = new THREE.PointLight(0xffffff, 0, 10);
+flashlight.decay = 2;
+flashlight.distance = 10;
 scene.add(flashlight);
 
 const container = document.getElementById("container");
@@ -51,14 +53,14 @@ renderer.outputEncoding = THREE.sRGBEncoding;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 container.appendChild(renderer.domElement);
 
-const GRAVITY = 30;
+const GRAVITY = 40;
 
 const NUM_SPHERES = 100;
 const SPHERE_RADIUS = 0.1;
 
 const STEPS_PER_FRAME = 5;
 
-const sphereGeometry = new THREE.IcosahedronGeometry(SPHERE_RADIUS, 5);
+const sphereGeometry = new THREE.OctahedronGeometry(SPHERE_RADIUS, 5);
 const sphereMaterial = new THREE.MeshLambertMaterial({ color: 0x19ff14 });
 
 const spheres = [];
@@ -384,7 +386,6 @@ function animate() {
   const deltaTime = Math.min(0.05, clock.getDelta()) / STEPS_PER_FRAME;
   for (let i = 0; i < STEPS_PER_FRAME; i++) {
     controls(deltaTime);
-    // move flashlight
     flashlight.position.copy(camera.position);
     updatePlayer(deltaTime);
 

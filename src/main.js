@@ -349,11 +349,10 @@ function controls(deltaTime) {
 
 const loader = new GLTFLoader().setPath("../assets/");
 
-loader.load("collision-world.glb", (gltf) => {
+loader.load("stadium.glb", (gltf) => {
+  console.log("loaded");
   scene.add(gltf.scene);
-
   worldOctree.fromGraphNode(gltf.scene);
-
   gltf.scene.traverse((child) => {
     if (child.isMesh) {
       child.castShadow = true;
@@ -364,10 +363,6 @@ loader.load("collision-world.glb", (gltf) => {
       }
     }
   });
-
-  const helper = new OctreeHelper(worldOctree);
-  helper.visible = false;
-  scene.add(helper);
 
   animate();
 });
